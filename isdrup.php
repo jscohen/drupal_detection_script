@@ -76,30 +76,6 @@ foreach($array as &$value) {
 		continue;
 	}
 	
-	// look for the CHANGELOG.txt file which comes with Drupal
-	$url = $value . "/CHANGELOG.txt";
-	
-	$head = get_headers($url);
-	
-	// if the file is found, check that it is a text file since sometimes this redirects to other sites if it is not found, producing false positives
-	// output the results in the table and the spreadsheet
-	foreach($head as &$http) {
-		if($http == "Content-Type: text/plain") {
-			echo "<td>Yes</td>";
-			echo "<td>Detected by presence of CHANGELOG.txt</td>";
-			echo "</tr>";
-			$output = array($value, "Drupal", "Detected by the presence of CHANGELOG.txt");
-			fputcsv($file, $output);
-			$hasHeader = true;
-			break;
-		}
-	}
-	
-	// if we find the CHANGELOG file, go the next URL
-	if($hasHeader) {
-		continue;
-	}
-	
 	// if the checks don't work, output that the site is not Drupal
 	
 	echo "<td>No</td>";
