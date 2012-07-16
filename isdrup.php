@@ -2,7 +2,7 @@
 /*
  **	This script tests whether multiple URLS are Drupal sites
  **	The script loads the URLs from an external CSV file and stores them into an array
- **	Then we go through the array and check them using CHANGELOG.txt, http headers and /user to see if they are Drupal sites
+ **	Then we go through the array and check them using http headers and /node to see if they are Drupal sites
  ** The results are printed in a CSV file called "results.csv" which appears in the same directory as the script
  ** If you want the results to appear on the screen, uncomment the echo statements which print them
  **
@@ -18,7 +18,6 @@
 // i.e. if we want to do a very large number of URLs as once
 set_time_limit(0);
 
-// open the csv file and put its contents into our array
 $file = fopen("sample_urls.csv", "r");
 $array = fgetcsv($file);
 fclose($file);
@@ -26,12 +25,10 @@ fclose($file);
 // initialize prevValue so we can track the previous value of the array
 $prevValue = "";
 
-//create our table for display
 echo "<table border='1px'>";
 
 $file = fopen("results.csv", "w");
 
-// print the header lines to the CSV file
 $header = array("URL", "Is it Drupal?", "Detection Method");
 fputcsv($file, $header);
 
@@ -42,10 +39,9 @@ foreach($array as &$value) {
 		continue;
 	}
 	
-	// give prevValue the current value so it will the previous on next iteration
+	// give prevValue the current value so it will be the previous on next iteration
 	$prevValue = $value;
 	
-	//print out the name of the website and the Drupal header
 	echo "<tr><td>Website</td><td>";
 	print_r($value);
 	echo "</td></tr>";
@@ -75,7 +71,7 @@ foreach($array as &$value) {
 	if($hasHeader) {
 		continue;
 	}
-	
+
 	// if the checks don't work, output that the site is not Drupal
 	
 	echo "<td>No</td>";
