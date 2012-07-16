@@ -31,9 +31,8 @@ i.e. http://www.google.com instead of just google.com and that they are in the C
 
 3. How it Works
 ========================
-The script detects whether a site is made with Drupal using two methods.  
-The first is checking the HTTP header for a Drupal-specific easter egg (the header says that Drupal expires on Dries's birthday in 1978).
-The second method is looking for a plain text CHANGELOG.txt file, which most Drupal sites have by default.  
+The script detects whether a site is made with Drupal.  
+It checks the HTTP header for a Drupal-specific easter egg (the header says that Drupal expires on Dries's birthday in 1978).
 
 The script has two outputs.  The first is to output the URL, whether it is Drupal or not, and the detection method in a table on the webpage.  
 The results will also by outputted into a CSV file called results.csv.  
