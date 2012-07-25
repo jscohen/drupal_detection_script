@@ -27,7 +27,7 @@ $prevValue = "";
 
 echo "<table border='1px'>";
 
-$file = fopen("results.csv", "w");
+$file = fopen("urls.csv", "w");
 
 $header = array("URL", "Is it Drupal?", "Detection Method");
 fputcsv($file, $header);
@@ -60,7 +60,7 @@ foreach($array as &$value) {
 			echo "<td>Yes</td>";
 			echo "<td>Detected by HTTP header</td>";
 			echo "</tr>";
-			$output = array($value, "Drupal", "Detected by the HTTP Headers");
+			$output = array($value, "Yes", "Detected by the HTTP Headers");
 			fputcsv($file, $output);
 			$hasHeader = true;
 			break;
@@ -76,7 +76,7 @@ foreach($array as &$value) {
 	
 	echo "<td>No</td>";
 	echo "<td>N/A</td>";
-	$output = array($value);
+	$output = array($value, "No");
 	fputcsv($file, $output);
 	
 	echo "</tr>";
