@@ -1,1 +1,3 @@
 URL,"Is it Drupal?","Detection Method"
+http://www.cnn.com,No
+http://www.drupal.org,Yes,"Detected by the HTTP Headers"

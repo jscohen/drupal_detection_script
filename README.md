@@ -23,10 +23,11 @@ The script was written by Jon Cohen for Isovera.
 
 2. Setting up the script
 ========================
-To run the script, all you need to do is put the script and the CSV file on a web server.  If you are using XAMPP for example, just put the two docs in the 
-htdocs folder.  Then open up a browser and type in the url http://yourdomain.com/is_drup.php.  For XAMPP, replace youdomain.com with localhost.
+On January 15th, 2013 I created a GUI for the app.  To use it, you need to be able to run PHP scripts on your computer, which requires a server installed.  XAMPP or Apple's native capabilities will work for this.
 
-You can use any spreadsheet with any number of URLS so long as it is formatted like the sample CSV shown here.  It is important that the URLS are in full:
+Open up detection.php using a web browser on your server.  Make sure the CSV spreadsheet is formatted as the instructions indicate.  Then upload the file and click submit.  If the file uploads properly, there will be a confirming message on the following page.  When the page isdrup.php is done loading, check results.csv for your results!
+
+You can use any CSV spreadsheet with any number of URLS so long as it is formatted like the sample CSV shown here.  It is important that the URLS are in full:
 i.e. http://www.google.com instead of just google.com and that they are in the CSV horizontally.
 
 3. How it Works
@@ -44,5 +45,7 @@ If a URL is a dead link or if it times out, you will receive a warning on the PH
 4. Current Bugs and Future fixes
 ========================
 For the script to work properly, make sure you have OpenSSL enabled in your PHP installation or else the script will not work on https sites.
+
+On 1/15/13, I created a functioning GUI for the app.
 
 I am looking for ways to improve the script and to add methods for detecting Drupal.  Help would be appreciated.  If you have anything to add, make a commit to git and I will look it over.

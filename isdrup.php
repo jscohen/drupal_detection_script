@@ -15,31 +15,30 @@
 $target_path = basename($_FILES['uploadedURLs']['name']);
 
 if(move_uploaded_file($_FILES['uploadedURLs']['tmp_name'], $target_path)) {
-    echo "The file ".  basename( $_FILES['uploadedfile']['name']). 
-    " has been uploaded";
-} else{
-    echo "There was an error uploading the file, please try again!";
+	echo "The file ". basename ($_FILES['uploadedURLs']['name']) . " has been uploaded";
+} else {
+	echo "There was an error uploading the file!";
 }
- 
- 
+
 // there is an automatic timeout if this takes too long
 // we can set this number to 0 if we want the script to continue and override timeouts
 // i.e. if we want to do a very large number of URLs as once
+
 set_time_limit(0);
 
-$file = fopen("urls.csv", "r");
-$array = fgetcsv($file);
-fclose($file);
+$input = fopen(basename($_FILES['uploadedURLs']['name']), "r");
+$array = fgetcsv($input);
+fclose($input);
 
 // initialize prevValue so we can track the previous value of the array
 $prevValue = "";
 
 echo "<table border='1px'>";
 
-$file = fopen("results.csv", "w");
+$output = fopen("results.csv", "w");
 
 $header = array("URL", "Is it Drupal?", "Detection Method");
-fputcsv($file, $header);
+fputcsv($output, $header);
 
 foreach($array as &$value) {
 
@@ -51,11 +50,6 @@ foreach($array as &$value) {
 	// give prevValue the current value so it will be the previous on next iteration
 	$prevValue = $value;
 	
-	echo "<tr><td>Website</td><td>";
-	print_r($value);
-	echo "</td></tr>";
-	echo "<tr><td>Is it Drupal?</td>";
-	
 	// get the http headers for the url at value
 	$headers = get_headers($value);
 	
@@ -66,11 +60,8 @@ foreach($array as &$value) {
 	// if it is found, print yes and stop the loop
 	foreach($headers as &$http) {
 		if($http == "Expires: Sun, 19 Nov 1978 05:00:00 GMT") {
-			echo "<td>Yes</td>";
-			echo "<td>Detected by HTTP header</td>";
-			echo "</tr>";
-			$output = array($value, "Yes", "Detected by the HTTP Headers");
-			fputcsv($file, $output);
+			$outputLine = array($value, "Yes", "Detected by the HTTP Headers");
+			fputcsv($output, $outputLine);
 			$hasHeader = true;
 			break;
 		}
@@ -83,10 +74,8 @@ foreach($array as &$value) {
 
 	// if the checks don't work, output that the site is not Drupal
 	
-	echo "<td>No</td>";
-	echo "<td>N/A</td>";
-	$output = array($value, "No");
-	fputcsv($file, $output);
+	$outputLine = array($value, "No");
+	fputcsv($output, $outputLine);
 	
 	echo "</tr>";
 }
@@ -96,7 +85,7 @@ echo "</table>";
 // make sure we print out all our content by using the flush function
 // this executes after the 5 minutes is over
 flush();
-fclose($file);
+fclose($output);
 
 echo "<h1>Check the results.csv file in this directory for the results of the script!</h1>";
 
