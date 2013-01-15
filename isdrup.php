@@ -12,13 +12,22 @@
  ** Script by Jon Cohen 4/30/12
 */
  
+$target_path = basename($_FILES['uploadedURLs']['name']);
 
+if(move_uploaded_file($_FILES['uploadedURLs']['tmp_name'], $target_path)) {
+    echo "The file ".  basename( $_FILES['uploadedfile']['name']). 
+    " has been uploaded";
+} else{
+    echo "There was an error uploading the file, please try again!";
+}
+ 
+ 
 // there is an automatic timeout if this takes too long
 // we can set this number to 0 if we want the script to continue and override timeouts
 // i.e. if we want to do a very large number of URLs as once
 set_time_limit(0);
 
-$file = fopen("sample_urls.csv", "r");
+$file = fopen("urls.csv", "r");
 $array = fgetcsv($file);
 fclose($file);
 
@@ -27,7 +36,7 @@ $prevValue = "";
 
 echo "<table border='1px'>";
 
-$file = fopen("urls.csv", "w");
+$file = fopen("results.csv", "w");
 
 $header = array("URL", "Is it Drupal?", "Detection Method");
 fputcsv($file, $header);
