@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+
 <?php
 /*
  **	This script tests whether multiple URLS are Drupal sites
@@ -38,7 +45,19 @@ echo "<table border='1px'>";
 $output = fopen("results.csv", "w");
 
 $header = array("URL", "Is it Drupal?", "Detection Method");
+
 fputcsv($output, $header);
+
+// array index
+?> 
+
+<script type="text/javascript">
+	var currentURL = 1;
+</script>
+
+<?php
+
+echo "<br /> <br /> <strong> <span id='current'></span> out of " . count($array) . " URLs analyzed </strong> <br />";
 
 foreach($array as &$value) {
 
@@ -77,7 +96,15 @@ foreach($array as &$value) {
 	$outputLine = array($value, "No");
 	fputcsv($output, $outputLine);
 	
-	echo "</tr>";
+	?> 
+	
+	<script type="text/javascript"> 
+		currentURL++;
+		$('#current').html(currentURL);
+	</script>
+	
+	<?php
+
 }
 
 echo "</table>";
@@ -87,6 +114,9 @@ echo "</table>";
 flush();
 fclose($output);
 
-echo "<h1>Check the results.csv file in this directory for the results of the script!</h1>";
+echo "<h3>Check the results.csv file in this directory for the results of the script!</h3>";
 
 ?>
+
+</body>
+</html>
