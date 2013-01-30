@@ -119,4 +119,8 @@ echo "<h3>Check the results.csv file in this directory for the results of the sc
 ?>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 32e45f2d77efc705f85996df48115a661155fbaf
